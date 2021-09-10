@@ -4,7 +4,7 @@ async function getProjects() {
     /* SQL QUERY TO MODEL FUNCTION OFF OF:
         SELECT *
         FROM projects;      */
-    const initialResult = await db('projects')
+    const initialResult = await db('projects');
 
     const result = initialResult.map(project => {
         if (project.project_completed === 0) {
@@ -13,8 +13,8 @@ async function getProjects() {
         } else if (project.project_completed === 1) {
             return {...project, project_completed: true}
         }
-    })
-    return result
+    });
+    return result;
 }
 
 async function createProject(newProject) {
@@ -31,7 +31,7 @@ async function createProject(newProject) {
     } else if (result.project_completed === 1) {
         result.project_completed = true
     }
-    return result
+    return result;
 }
 
 
