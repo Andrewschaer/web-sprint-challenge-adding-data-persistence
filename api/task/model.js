@@ -24,23 +24,20 @@ async function getTasks() {
 }
 
 async function createTask(newTask) {
-    /*  - Example of response body: `{"task_id":1,"task_description":"baz","task_notes":null,"task_completed":false,"project_id:1}` */
-
     /* SQL QUERY TO MODEL FUNCTION OFF OF:
-        SELECT r.recipe_id,
-            r.recipe_name,
-            r.created_at
-            s.step_id,
-            s.step_number,
-            s.step_instructions,
-            q.quantity,
-            i.ingredient_name,
-            i.ingredient_id
-        FROM recipes as r
-        LEFT JOIN steps as s ON r.recipe_id = s.recipe_id
-        LEFT JOIN step_ingredients as q ON s.step_id = q.step_id
-        LEFT JOIN ingredients as i ON q.ingredient_id = i.ingredient_id; */
-    return null
+        INSERT INTO tasks
+        ('task_notes', 'task_description', 'task_completed', 'project_id')
+        VALUES ('foo', 'bar', 'true', '1') */
+    const [taskId] = await db('tasks').insert(newTask);
+
+    const result = await db('tasks').where('task_id', taskId).first();
+
+    if (result.task_completed === 0) {
+        result.task_completed = false
+    } else if (result.task_completed === 1) {
+        result.task_completed = true
+    }
+    return result;
 }
 
 
