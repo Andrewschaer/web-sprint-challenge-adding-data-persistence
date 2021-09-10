@@ -2,7 +2,7 @@
 exports.up = async function(knex) {
     await knex.schema
         .createTable('projects', table => {
-            table.increments('projects_id');
+            table.increments('project_id');
             table.text('project_name').notNullable();
             table.text('project_description')
             table.boolean('project_completed').defaultTo(0);
@@ -22,8 +22,8 @@ exports.up = async function(knex) {
                 .notNullable()
                 .references('project_id')
                 .inTable('projects')
-                .onDelete('CASCADE')
-                .onUpdate('CASCADE');
+                .onDelete('RESTRICT')
+                .onUpdate('RESTRICT');
         })
         .createTable('project_resources', table => {
             table.increments('project_resource_id');
@@ -32,15 +32,15 @@ exports.up = async function(knex) {
                 .notNullable()
                 .references('project_id')
                 .inTable('projects')
-                .onDelete('CASCADE')
-                .onUpdate('CASCADE');
+                .onDelete('RESTRICT')
+                .onUpdate('RESTRICT');
             table.integer('resource_id')
                 .unsigned()
                 .notNullable()
                 .references('resource_id')
                 .inTable('resources')
-                .onDelete('CASCADE')
-                .onUpdate('CASCADE');
+                .onDelete('RESTRICT')
+                .onUpdate('RESTRICT');
         });
 };
 

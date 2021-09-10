@@ -1,27 +1,5 @@
 
 exports.seed = async function(knex) {
-  await knex('projects').truncate();
-  await knex('projects').insert([
-    {project_name: 'Draw A Smiley Face'},
-    {project_name: 'Refill Ink in Pen'},
-    {project_name: 'Make fiance happy',
-    project_description: 'The key to a happy life',
-    project_completed: 1
-    }
-  ]);
-  await knex('resources').truncate();
-  await knex('resources').insert([
-    {resource_name: 'Pen', 
-    resource_description: 'A thing you write with that contains an ink cartridge',
-    },
-    {resource_name: 'Paper'},
-    {resource_name: 'Ink'},
-    {resource_name: 'Flowers', 
-    resource_description: 'Pretty looking plants that grow outside and smell nice',
-    },
-    {resource_name: 'Food to Make Dinner'}
-  ]);
-  await knex('tasks').truncate();
   await knex('tasks').insert([
     {task_description: 'Get a pen & piece of paper',
     project_id: 1
@@ -67,27 +45,6 @@ exports.seed = async function(knex) {
     task_notes: 'Do this as often as possible - not a one time deal!',
     task_completed: 1,
     project_id: 3
-    }
-  ]);
-  await knex('project_resources').truncate();
-  await knex('project_resources').insert([
-    {project_id: 1,
-    resource_id: 1
-    },
-    {project_id: 1,
-    resource_id: 2
-    },
-    {project_id: 2,
-    resource_id: 1
-    },
-    {project_id: 2,
-    resource_id: 3
-    },
-    {project_id: 3,
-    resource_id: 4
-    },
-    {project_id: 3,
-    resource_id: 5
     }
   ]);
 };
