@@ -1,11 +1,9 @@
 const db = require('../../data/dbConfig')
 
 async function getProjects() {
-    /*  - Example of response body: `[{"project_id":1,"project_name":"bar","project_description":null,"project_completed":false}] */
-
     /* SQL QUERY TO MODEL FUNCTION OFF OF:
-        Select *
-        From projects;      */
+        SELECT *
+        FROM projects;      */
     const initialResult = await db('projects')
 
     const result = initialResult.map(project => {
@@ -20,8 +18,20 @@ async function getProjects() {
 }
 
 async function createProject(newProject) {
-    /*  - Example of response body: {"project_id":1,"project_name":"bar","project_description":null,"project_completed":false}` */
-    return null
+    /* SQL QUERY TO MODEL FUNCTION OFF OF:
+        INSERT INTO projects
+        ('project_name', 'project_description', 'project_completed')
+        VALUES ('foo', 'bar', 'true')      */
+    const [projectId] = await db('projects').insert(newProject);
+
+    const result = await db('projects').where('project_id', projectId).first();
+
+    if (result.project_completed === 0) {
+        result.project_completed = false
+    } else if (result.project_completed === 1) {
+        result.project_completed = true
+    }
+    return result
 }
 
 
