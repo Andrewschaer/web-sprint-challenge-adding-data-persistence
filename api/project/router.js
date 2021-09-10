@@ -4,11 +4,19 @@ const Project = require('./model');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-    res.status(200).json('TBD')
+    Project.getProjects()
+        .then(allProjects => {
+            res.status(200).json(allProjects);
+        })
+        .catch(next);
 });
 
 router.post('/', (req, res, next) => {
-    res.status(201).json('TBD')
+    Project.createProject(req.body)
+        .then(newProject => {
+            res.status(201).json(newProject);
+        })
+        .catch(next);
 });
 
 module.exports = router;

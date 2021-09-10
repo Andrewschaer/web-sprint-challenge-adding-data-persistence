@@ -4,11 +4,19 @@ const Task = require('./model');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-    res.status(200).json('TBD')
+    Task.getTasks()
+        .then(allTasks => {
+            res.status(200).json(allTasks);
+        })
+        .catch(next);
 });
 
 router.post('/', (req, res, next) => {
-    res.status(201).json('TBD')
+    Task.createTask(req.body)
+        .then(newTask => {
+            res.status(201).json(newTask);
+        })
+        .catch(next);
 });
 
 module.exports = router;
